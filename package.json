@@ -1,0 +1,24 @@
+{
+  "name": "iconsPortal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "netlify-lambda build src",
+    "serve": "netlify-lambda serve src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jtepp/iconsPortal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jtepp/iconsPortal/issues"
+  },
+  "homepage": "https://github.com/jtepp/iconsPortal#readme",
+  "dependencies": {
+    "netlify-lambda": "^2.0.3"
+  }
+}
