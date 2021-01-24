@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset=“UTF-8”>
+        <title>iCons | Response</title>
+    </head>
+
+    <body>
+
+
+
+<h1>Incoming order from Room 220</h1><br><p>Request: 1 Mac charger</p><br><p>Date: 5:30 PM Jan 24, 2021</p>
+<br>
+<hr>
+<h2 class="center" style = "display: flex;flex-wrap: wrap;flex-direction: row;align-items: center;justify-content: center;">Accept order as:</h2>
+<div class="center" style = "display: grid;flex-wrap: wrap;flex-direction: row;align-items: center;justify-content: center;" id="staffcont"></div>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
+
+    * {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .center {
+        display: flex;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .staffdiv {
+        width: 240px;
+        height: 240px;
+        overflow: hidden;
+        border-radius: 50px;
+        border: solid silver 5px;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .staffimg {
+        width: 240px;
+        height: 220px;
+        overflow: hidden;
+        
+    }
+
+    img {
+        position: relative;
+        transition: all ease 0.4s;
+        top: 0;
+    }
+
+    img:hover {
+        transform: scale(1.4);
+        top: 40px;
+    }
+
+    .staffname {
+        text-align: center;
+        font-weight: 700;
+    }
+
+</style>
+
+<script>
+const staffList = [
+"Adam Pukier.jpg",
+"Laura Osborne.jpg",
+"Anthony Scalzitti.jpg",
+"Laura Phillips.jpg",
+"Aubry Williams.jpg",
+"Leigh Dederer.jpg",
+"Ben Frosst.jpg",
+"Matthew Shade-Silver.jpg",
+"Ciaran Beveridge.jpg",
+"Meghan Fast.jpg",
+"Connor Prior.jpg",
+"Molly White.jpg",
+"David Marshall.jpg",
+"Monique Rivard.jpg",
+"Duncan Steinke.jpg",
+"Nic Fanning.jpg",
+"Emily Schnarr.jpg",
+"Nicolas Arnot.jpg",
+"Jack Lipton.jpg",
+"Olivia Blair.jpg",
+"Jacob Calderone.jpg",
+"Owen Panksep.jpg",
+"Jacqueline Del-Gatto.jpg",
+"Sydney Liao.jpg",
+"Jeff Martin.jpg",
+"Thomas Ung.jpg",
+"Julia Maine.jpg",
+"Will King.jpg",
+"Justin Bonal.jpg",
+"Zane Maklin.jpg"];
+
+for (s of staffList){
+    const e = document.createElement('div');
+    e.setAttribute('class', 'staffdiv');
+    e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
+
+
+ 
+    
+    
+    const i = document.createElement('img');
+    i.src = "https://allpurpose.netlify.app/resources/headshots/"+s.replace(' ', '%20');
+    i.style.width = "240px";
+    i.setAttribute('draggable', 'false');
+    
+    const si = document.createElement('div');
+    si.setAttribute('class', 'staffimg');
+    si.setAttribute('style', 'width: 240px;height: 220px;overflow: hidden;');
+
+    si.appendChild(i);
+
+    e.appendChild(si);
+    
+    
+       
+    const n = document.createElement('div');
+    n.setAttribute('class', 'staffname');
+    n.setAttribute('style', 'text-align: center;font-weight: 700;')
+    n.innerText = s.replace('.jpg','');
+    e.appendChild(n);
+    document.getElementById('staffcont').appendChild(e);
+}
+
+
+</script>
+
+
+
+
+    </body>
+</html>
