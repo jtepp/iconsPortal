@@ -8,5 +8,5 @@ exports.handler = async (event, context) => {
                 "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS 
             },
             body: "test"})
-    .catch(error => ({ statusCode: 422, body: String(error) }));
+
 };
