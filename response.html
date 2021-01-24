@@ -118,7 +118,6 @@ for (s of staffList){
     
     const si = document.createElement('div');
     si.setAttribute('class', 'staffimg');
-    si.setAttribute('style', 'width: 240px;height: 220px;overflow: hidden;');
 
     si.appendChild(i);
 
@@ -128,7 +127,6 @@ for (s of staffList){
        
     const n = document.createElement('div');
     n.setAttribute('class', 'staffname');
-    n.setAttribute('style', 'text-align: center;font-weight: 700;')
     n.innerText = s.replace('.jpg','');
     e.appendChild(n);
     document.getElementById('staffcont').appendChild(e);
