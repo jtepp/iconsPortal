@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "firebase": "^8.2.4",
+    "firebase-admin": "^9.4.2",
     "netlify-lambda": "^2.0.0"
   },
   "devDependencies": {}
