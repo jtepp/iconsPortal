@@ -1,5 +1,6 @@
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var canClick = true;
   var firebaseConfig = {
     apiKey: "AIzaSyCX8O0iEJpoHMrec2-L3wc_qTc4csx8Gww",
     authDomain: "icons724a.firebaseapp.com",
@@ -38,7 +39,7 @@ document.getElementById("from").innerHTML += from
 
       
 
-function addStaff() {
+async function addStaff() {
   const staffList = [
     "Adam Pukier.jpg",
     "Laura Osborne.jpg",
@@ -80,17 +81,26 @@ function addStaff() {
     const e = document.createElement('div');
     e.setAttribute('class', 'staffdiv');
     e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
-    e.onclick = () => {
+    e.onclick = () => { if (canClick){
+      canClick = false
       fetch('https://allpurpose.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
         .then(res => res.text())
         .then(t => {
           if (t == "success") {
+            ids.forEach( item =>{
+              const ff = firebase.firestore().collection('items').doc(item)
+              ff.update({
+                available: firebase.firestore.FieldValue.increment(-1)
+              })
+              
+            })
+
             window.location.href = "/";
           } else {
             console.log(t);
           }
 
-        });
+        });}
     };
 
 
