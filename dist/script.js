@@ -76,6 +76,7 @@ async function addStaff() {
 
 
   for (let s of staffList) {
+    
     const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https://iconsportal.netlify.app/headshots/${s}" draggable="false" style="width: 240px%3B"/></div></div>`
     const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
     const e = document.createElement('div');
@@ -83,17 +84,18 @@ async function addStaff() {
     e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
     e.onclick = () => { if (canClick){
       canClick = false
+      ids.forEach( item =>{
+        const ff = firebase.firestore().collection('items').doc(item)
+        ff.update({
+          available: firebase.firestore.FieldValue.increment(-1)
+        })
+        
+      })
       fetch('https://allpurpose.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
         .then(res => res.text())
         .then(t => {
           if (t == "success") {
-            ids.forEach( item =>{
-              const ff = firebase.firestore().collection('items').doc(item)
-              ff.update({
-                available: firebase.firestore.FieldValue.increment(-1)
-              })
-              
-            })
+            
 
             window.location.href = "/";
           } else {
