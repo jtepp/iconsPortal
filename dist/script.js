@@ -91,7 +91,7 @@ async function addStaff() {
         })
         
       })
-      fetch('https://allpurpose.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
+      fetch('https://iconsportal.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
         .then(res => res.text())
         .then(t => {
           if (t == "success") {
