@@ -12,8 +12,10 @@
 
 
 
-<h1>Incoming order from Room 220</h1><br><p>Request: 1 Mac charger</p><br><p>Date: 5:30 PM Jan 24, 2021</p>
-<br>
+<h1 id="room">Incoming order from Room </h1><br>
+<p id="from">From: </p>
+<p id="request">Request:</p>
+<p id="date">Date: </p>
 <hr>
 <h2 class="center" >Accept order as:</h2>
 <div class="center" id="staffcont"></div>
@@ -68,73 +70,12 @@
         font-weight: 700;
     }
 
+    #request {
+        font-weight: 800;
+        font-size: larger;
+    }
+
 </style>
-
-<script>
-const staffList = [
-"Adam Pukier.jpg",
-"Laura Osborne.jpg",
-"Anthony Scalzitti.jpg",
-"Laura Phillips.jpg",
-"Aubry Williams.jpg",
-"Leigh Dederer.jpg",
-"Ben Frosst.jpg",
-"Matthew Shade-Silver.jpg",
-"Ciaran Beveridge.jpg",
-"Meghan Fast.jpg",
-"Connor Prior.jpg",
-"Molly White.jpg",
-"David Marshall.jpg",
-"Monique Rivard.jpg",
-"Duncan Steinke.jpg",
-"Nic Fanning.jpg",
-"Emily Schnarr.jpg",
-"Nicolas Arnot.jpg",
-"Jack Lipton.jpg",
-"Olivia Blair.jpg",
-"Jacob Calderone.jpg",
-"Owen Panksep.jpg",
-"Jacqueline Del-Gatto.jpg",
-"Sydney Liao.jpg",
-"Jeff Martin.jpg",
-"Thomas Ung.jpg",
-"Julia Maine.jpg",
-"Will King.jpg",
-"Justin Bonal.jpg",
-"Zane Maklin.jpg"];
-
-for (s of staffList){
-    const e = document.createElement('div');
-    e.setAttribute('class', 'staffdiv');
-    e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
-
-
- 
-    
-    
-    const i = document.createElement('img');
-    i.src = "headshots/"+s.replace(' ', '%20');
-    i.style.width = "240px";
-    i.setAttribute('draggable', 'false');
-    
-    const si = document.createElement('div');
-    si.setAttribute('class', 'staffimg');
-
-    si.appendChild(i);
-
-    e.appendChild(si);
-    
-    
-       
-    const n = document.createElement('div');
-    n.setAttribute('class', 'staffname');
-    n.innerText = s.replace('.jpg','');
-    e.appendChild(n);
-    document.getElementById('staffcont').appendChild(e);
-}
-
-
-</script>
 
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
