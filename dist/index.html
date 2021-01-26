@@ -3,20 +3,85 @@
 <html>
     <head>
         <meta charset=“UTF-8”>
-        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
         <title>iCons | Home</title>
     </head>
 
     <body>
 <h1>Welcome to the iCons portal</h1>
+<br>
+<hr>
+<h2 id="head">Manage Inventory</h2>
+
+<div id="dbcont"></div>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap');
 
     * {
         font-family: 'Open Sans', sans-serif;
     }
+
+    #head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #dbcont {
+        background: #eee;
+        border-radius: 20px;
+        margin: 20px;
+        /* padding: 20px; */
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        padding: 5px 20px;
+        background: #06894b;
+        border-radius: 10px;
+        width: fit-content;
+        min-width: 240px;
+        max-width: 300px;
+        margin: 20px;
+    }
+    
+    .card > h3 {
+        color: white;
+        margin: 10px;
+        font-size: 20pt;
+    }
+
+    .card > p {
+        color: white;
+    }
+
+    .fieldcont{
+        color: white;
+        padding: 5px 20px;
+        background: #035f34;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .increment {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
-        <script src="script.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+        <script src="db.js"></script>
     </body>
 </html>
