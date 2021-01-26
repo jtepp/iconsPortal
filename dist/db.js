@@ -39,8 +39,9 @@ function makeCard(docInput){
     del.src = "images/x.png"
     cardTop.appendChild(del)
     del.onclick = ()=>{
+        if (window.confirm("Are you sure you want to delete this item?")){
         const ff = firebase.firestore().collection("items").doc(docInput.id)
-        ff.delete()
+        ff.delete()}
     }
     d.appendChild(cardTop)
 
@@ -130,7 +131,7 @@ function openEdit(id){
             const data = doc.data()
             n.value = data["name"]
             c.value = data["category"]
-            a.value = data["available"]
+            a.value = Math.abs(data["available"])
             e.style.top = "50%"
             
         }
@@ -142,8 +143,13 @@ function openEdit(id){
         firebase.firestore().collection('items').doc(id).update({
             name: n.value,
             category: c.value,
-            available: Number(a.value)
+            available: Math.abs(Number(a.value))
         })}
         document.getElementById("editor").style.top = "200%"
     }
+    document.body.addEventListener("keypress", (event)=>{
+        if (document.getElementById("editor").style.top == "50%" && event.keyCode == 13){
+            document.getElementById("done").click()
+    }
+    })
 }
