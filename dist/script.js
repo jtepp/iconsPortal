@@ -1,3 +1,5 @@
+if (window.location.href.includes("%26")) window.location.href = window.location.href.split("%26").join("&")
+
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var canClick = true;
