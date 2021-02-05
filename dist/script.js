@@ -57,7 +57,7 @@ async function addStaff() {
 
   for (let s of staffList) {
     
-    const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https://iconsportal.netlify.app/headshots/${s}" draggable="false" style="width: 100%25%3B"/></div></div>`
+    const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https://firebasestorage.googleapis.com/v0/b/icons724a.appspot.com/o/staff%2F${s}?alt=media" draggable="false" style="width: 100%25%3B"/></div></div>`
     const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
     const e = document.createElement('div');
     e.setAttribute('class', 'staffdiv');
@@ -90,7 +90,7 @@ async function addStaff() {
 
 
     const i = document.createElement('img');
-    i.src = "headshots/" + s.replace(' ', '%20');
+    i.src = `https://firebasestorage.googleapis.com/v0/b/icons724a.appspot.com/o/staff%2F${s.replace(' ', '%20')}?alt=media`
     i.style.width = "240px";
     i.setAttribute('draggable', 'false');
 
