@@ -18,6 +18,7 @@ if (window.location.href.includes("%26")) window.location.href = window.location
   var db = firebase.firestore();
   
   const ids = JSON.parse(new URLSearchParams(window.location.search).get("id")) || []
+  const quantities = JSON.parse(new URLSearchParams(window.location.search).get("quantities")) || []
   const room = new URLSearchParams(window.location.search).get("room") || "[no room]"
   const mail = new URLSearchParams(window.location.search).get("mail") || "19jgt1@queensu.ca"
   const from = new URLSearchParams(window.location.search).get("name") || "[no name]"
@@ -26,13 +27,12 @@ if (window.location.href.includes("%26")) window.location.href = window.location
     db.collection("items").get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               if (ids.includes(doc.id)){
-                document.getElementById("request").innerHTML += " "+doc.get("name")+","
-                itemsRequested += " "+doc.get("name")+","
-                document.getElementById("request").innerHTML = document.getElementById("request").innerHTML.slice(0,document.getElementById("request").innerHTML.length -1)
-                itemsRequested = itemsRequested.slice(0,itemsRequested.length -1)
-                addStaff();
+                itemsRequested += " "+doc.get("name")+" x"+(quantities[ids.indexOf(doc.id)] || 1)+","
               }
           });
+          itemsRequested = itemsRequested.slice(0,itemsRequested.length -1)
+                document.getElementById("request").innerHTML = "Request: " + itemsRequested
+                addStaff();
       })
       
 document.getElementById("room").innerHTML += room
@@ -88,8 +88,9 @@ async function addStaff() {
       canClick = false
       ids.forEach( item =>{
         const ff = firebase.firestore().collection('items').doc(item)
+        const inc = -1 * (quantities[ids.indexOf(ff.id)] || 1)
         ff.update({
-          available: firebase.firestore.FieldValue.increment(-1)
+          available: firebase.firestore.FieldValue.increment(inc)
         })
         
       })
