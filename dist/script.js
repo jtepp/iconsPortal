@@ -57,7 +57,7 @@ async function addStaff() {
 
   for (let s of staffList) {
     
-    const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https://firebasestorage.googleapis.com/v0/b/icons724a.appspot.com/o/staff%2F${s}?alt=media" draggable="false" style="width: 100%25%3B"/></div></div>`
+    const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Ficons724a.appspot.com%2Fo%2Fstaff%252F${s}%3Falt%3Dmedia" draggable="false" style="width: 100%25%3B"/></div></div>`
     const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
     const e = document.createElement('div');
     e.setAttribute('class', 'staffdiv');
