@@ -41,40 +41,18 @@ document.getElementById("from").innerHTML += from
 
       
 
-async function addStaff() {
-  const staffList = [
-    "Adam Pukier.jpg",
-    "Laura Osborne.jpg",
-    "Anthony Scalzitti.jpg",
-    "Laura Phillips.jpg",
-    "Aubry Williams.jpg",
-    "Leigh Dederer.jpg",
-    "Ben Frosst.jpg",
-    "Matthew Shade-Silver.jpg",
-    "Ciaran Beveridge.jpg",
-    "Meghan Fast.jpg",
-    "Connor Prior.jpg",
-    "Molly White.jpg",
-    "David Marshall.jpg",
-    "Monique Rivard.jpg",
-    "Duncan Steinke.jpg",
-    "Nic Fanning.jpg",
-    "Emily Schnarr.jpg",
-    "Nicolas Arnot.jpg",
-    "Jack Lipton.jpg",
-    "Olivia Blair.jpg",
-    "Jacob Calderone.jpg",
-    "Owen Panksep.jpg",
-    "Jacqueline Del-Gatto.jpg",
-    "Sydney Liao.jpg",
-    "Jeff Martin.jpg",
-    "Thomas Ung.jpg",
-    "Julia Maine.jpg",
-    "Will King.jpg",
-    "Justin Bonal.jpg",
-    "Zane Maklin.jpg"
-  ];
 
+async function addStaff() {
+  var staffList = []
+  var listRef = firebase.storage().ref('staff/')
+  await listRef.listAll()
+  .then((res) => {
+    res.items.forEach((itemRef) => {
+      staffList.push(itemRef.name)
+    });
+  }).catch((error) => {
+    console.log(error)
+  });
 
 
   for (let s of staffList) {

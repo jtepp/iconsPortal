@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset=“UTF-8”>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+        <title>iCons | Staff</title>
+    </head>
+
+    <body>
+<h1>Welcome to the iCons portal</h1>
+<br>
+<hr>
+<h2 id="head">Manage Staff</h2>
+<!-- 
+<div id="dbcont"></div>
+<div id="editor" >
+    <div class="card" id="editcard">
+        <div class="editspace" >
+            <strong>Name: </strong><input type="text" id="editname">
+        </div>
+        <div class="fieldcont editspace" style="margin: 20px 0px 20px 0px; flex-direction: column; padding: 20px" >
+            <div><strong>Category: </strong><input type="text" id="editcategory" style="margin-bottom: 10px;"></div>
+            <div><strong>Available: </strong><input type="number" id="editavailable" min="0"></div>
+        </div>
+        <div class="edit" id="done">Done</div>
+    </div>
+</div> -->
+<progress id="progress"></progress>
+<input type="file" id="fileButton">
+
+
+<style>
+
+    * {
+        font-family: 'Open Sans', sans-serif;
+        transition: all ease 0.4s;
+    }
+    #progress {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+</style>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-storage.js"></script>
+        <script src="staff.js"></script>
+    </body>
+</html>
