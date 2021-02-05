@@ -1,0 +1,126 @@
+
+
+* {
+    font-family: 'Open Sans', sans-serif;
+    transition: all ease 0.4s;
+}
+
+#head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dbcont {
+    background: #eee;
+    border-radius: 20px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.card {
+    color: white;
+    padding: 5px 20px;
+    background: #06894b;
+    border-radius: 10px;
+    width: fit-content;
+    min-width: 240px;
+    max-width: 300px;
+    margin: 20px;
+    min-height: 180px;
+    filter: drop-shadow(4px 4px 4px #00000077);
+}
+
+.card:hover{
+    filter: drop-shadow(8px 8px 5px #00000077);
+}
+
+.card > .cardTop > h3 {
+    margin: 10px;
+    font-size: 20pt;
+    max-width: 200px;
+    word-wrap: break-word;
+}
+
+img {
+    cursor: pointer;
+}
+
+#addnew{
+    border-radius: 10px;
+    border: dashed gray 2px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.fieldcont{
+    color: white;
+    padding: 5px 20px;
+    background: #035f34;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.increment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.editspace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editspace > div {
+    flex-direction: row;
+}
+.cardTop {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.cardTop > img {
+    margin-top: 10px;
+}
+.edit {
+    color: white;
+    margin-left: calc(100% - 40px);
+    -webkit-touch-callout: none;
+-webkit-user-select: none; 
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+        user-select: none; 
+        cursor: pointer;
+}
+
+#editor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%,-50%);
+    position: fixed;
+    top: 200%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);;
+}
+
+
+#editcard{
+
+    padding: 20px;
+}

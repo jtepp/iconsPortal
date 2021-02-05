@@ -1,0 +1,53 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.center {
+    display: flex;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.staffdiv {
+    width: 240px;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 50px;
+    border: solid silver 5px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.staffimg {
+    width: 240px;
+    height: 220px;
+    overflow: hidden;
+    
+}
+
+img {
+    position: relative;
+    transition: all ease 0.4s;
+    top: 0;
+}
+
+img:hover {
+    transform: scale(1.4);
+    top: 40px;
+}
+
+.staffname {
+    text-align: center;
+    font-weight: 700;
+}
+
+#request {
+    font-weight: 800;
+    font-size: larger;
+}

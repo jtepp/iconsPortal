@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="staff.css">
         <title>iCons | Staff</title>
     </head>
 
@@ -14,23 +15,9 @@
 <br>
 <hr>
 <h2 id="head">Manage Staff</h2>
-<!-- 
-<div id="dbcont"></div>
-<div id="editor" >
-    <div class="card" id="editcard">
-        <div class="editspace" >
-            <strong>Name: </strong><input type="text" id="editname">
-        </div>
-        <div class="fieldcont editspace" style="margin: 20px 0px 20px 0px; flex-direction: column; padding: 20px" >
-            <div><strong>Category: </strong><input type="text" id="editcategory" style="margin-bottom: 10px;"></div>
-            <div><strong>Available: </strong><input type="number" id="editavailable" min="0"></div>
-        </div>
-        <div class="edit" id="done">Done</div>
-    </div>
-</div> -->
 
-<!-- <progress id="progress"></progress>
-<input type="file" id="fileButton"> -->
+
+
 
 <div id="staffcont">
     <div id="newcard" class="staffcard">
@@ -39,93 +26,14 @@
         </div>
     </div>
 </div>
-<style>
 
-    * {
-        font-family: 'Open Sans', sans-serif;
-        transition: all ease 0.4s;
-    }
-    #progress {
-        -webkit-appearance: none;
-        appearance: none;
-    }
-    #head {
-        text-align: center;
-    }
-    #staffcont{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-        justify-content: center;
-    }
-    .flex-column, .staffcard, .staffinfo, #innernewcard {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-    .flex-row, .staffactions, #newcard {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-    #newcard{
-        justify-content: center;
-        background: none;
-        border: dashed gray 2px;
-    }
-    #newcard:hover{
-        cursor: pointer;
-    }
-    #innernewcard{
-        justify-content: center;
-    }
-    .staffcard{
-        filter: drop-shadow(4px 4px 4px #00000077);
-        width: 300px;
-        height: 100px;
-        background: rgb(35, 83, 212);
-        border-radius: 10px;
-        margin: 10px;
-    }
-    .staffcard:hover{
-        filter: drop-shadow(8px 8px 5px #00000077);
-    }
-    .staffimg{
-        border-radius: 100%;
-        overflow: hidden;
-        width: 100px;
-        height: 100px;
-        transform: scale(0.75);
-        box-shadow: 2px 2px 6px;
-    }
-    .staffinfo{
-        justify-content: space-evenly;
-        align-items: center;
-        height: 100%;
-    }
-    .staffname{
-        font-weight: 700;
-        color: white;
-    }
-    .staffactions{
-        width: 200px;
-        justify-content: space-evenly;
-    }
-    .staffbutton {
-        font-weight: 400;
-        padding: 2px;
-        border-radius: 4px;
-        color: white;
-        background: #06894b;
-        box-shadow: 1px 1px 3px black;
-        cursor: pointer;
-    }
-    .staffbutton::after {
-        content: attr(data-text);
-    }
-    
-</style>
+<div id="editorcont">
+    <div>
+        <input type="file" id="fileButton">
+        <progress id="progress"></progress>
+    </div>
+</div>
+
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
 
