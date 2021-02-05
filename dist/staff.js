@@ -11,31 +11,25 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-// const progress = document.getElementById("progress")
-// const fileButton = document.getElementById("fileButton")
+const progress = document.getElementById("progress")
+const fileButton = document.getElementById("fileButton")
 
-// fileButton.addEventListener('change', (e)=>{
-//     //get file
-//     var file = e.target.files[0]
+fileButton.addEventListener('change', (e)=>{
+    const fr = new FileReader()
+    fr.onload = (event)=>{
+        document.getElementById('editimg').src = event.target.result
+    }
+   
+    fr.readAsDataURL(e.target.files[0])
+})
 
-//     //create storage ref
-//     var storageRef = firebase.storage().ref('staff/'+file.name)
-    
-//     //upload file
-//     var task = storageRef.put(file)
 
-//     //update progress bar
-//     task.on('state_changed', (snapshot)=>{
-//         var percentage = snapshot.bytesTransferred/snapshot.totalBytes*100
-//         progress.value = percentage
-//     }, (error)=>{},
-//      /*complete*/()=>{})
-// })
 
 addStaff()
 
 
 async function addStaff(){
+    placeNewCard()
     var listRef = firebase.storage().ref('staff/')
     await listRef.listAll()
     .then((res) => {
@@ -46,6 +40,24 @@ async function addStaff(){
         console.log(error)
     });
 
+}
+
+function placeNewCard() {
+    const nc = document.createElement('div')
+    nc.id = "newcard"
+    nc.classList.add('staffcard')
+    nc.onclick = ()=>{showEdit(false, '')}
+
+    const inc = document.createElement('div')
+    inc.id = "innernewcard"
+    
+    const i = new Image(60,60)
+    i.src = "images/+.png"
+    i.style.filter = "hue-rotate(90deg)"
+
+    inc.appendChild(i)
+    nc.appendChild(inc)
+    document.getElementById('staffcont').appendChild(nc)
 }
 
 function placeStaff(s){
@@ -70,15 +82,19 @@ function placeStaff(s){
     const actions = document.createElement('div')
     actions.classList.add('staffactions')
 
-    const edit = document.createElement('div')
-    edit.classList.add('staffbutton')
-    edit.setAttribute('data-text','Edit')
+    // const edit = document.createElement('div')
+    // edit.classList.add('staffbutton')
+    // edit.setAttribute('data-text','Edit')
+    // edit.onclick = ()=>{showEdit(false, s)}
 
     const del = document.createElement('div')
     del.classList.add('staffbutton')
     del.setAttribute('data-text','Delete')
+    del.onclick = ()=>{
+        deleteStaff(s, false)
+    }
 
-    actions.appendChild(edit)
+    // actions.appendChild(edit)
     actions.appendChild(del)
     info.appendChild(name)
     info.appendChild(actions)
@@ -88,4 +104,79 @@ function placeStaff(s){
     document.getElementById("staffcont").appendChild(card)
 
 
+}
+
+function cancelEdit(){
+    if (progress.value == 0) {
+        document.getElementById("editorcont").style.top = "200%"
+        document.getElementById('editname').value = ""
+        document.getElementById("fileButton").value = ""
+        document.getElementById('editimg').src = ""
+    }
+}
+
+function showEdit(creating, name){
+    document.getElementById('editupload').style.background = (name == "" || document.getElementById('fileButton').files.length == 0) ? "grey" : "#06894b"
+    if (!creating) {
+        document.getElementById('editimg').src = `https://firebasestorage.googleapis.com/v0/b/icons724a.appspot.com/o/staff%2F${name}?alt=media`
+        document.getElementById("editname").value = name.replace('.jpg', '')
+        document.getElementById("editorcont").style.top = "50%"
+        document.getElementById("editupload").onclick = ()=>{
+            if (document.getElementById("editname").value != "" && document.getElementById('fileButton').files.length != 0){
+                //delete from old name
+                deleteStaff(name, true)
+                //upload with new name/picture
+                upload(document.getElementById("editname").value, document.getElementById('fileButton').files[0])
+            }
+        }
+    } else {
+        //upload with fixed new name
+        if (document.getElementById("editname").value != "" && document.getElementById('fileButton').files.length != 0) {
+            upload(document.getElementById("editname").value+".jpg", document.getElementById('fileButton').files[0])
+        }
+    }
+
+    
+
+}
+
+document.getElementById("editname").addEventListener('input', (e)=>{
+    document.getElementById('editupload').style.background = (e.target.value == "" || document.getElementById('fileButton').files.length == 0) ? "grey" : "#06894b"
+})
+
+document.getElementById("fileButton").addEventListener('change', (e)=>{
+    document.getElementById('editupload').style.background = (e.target.files.length == 0 || document.getElementById("editname").value == "") ? "grey" : "#06894b"
+})
+
+function upload(name, file) {
+
+    //create storage ref
+    var storageRef = firebase.storage().ref('staff/'+name)
+    
+    //upload file
+    var task = storageRef.put(file)
+
+    //update progress bar
+    task.on('state_changed', (snapshot)=>{
+        var percentage = snapshot.bytesTransferred/snapshot.totalBytes*100
+        progress.value = percentage
+    }, (error)=>{},
+     /*complete*/()=>{
+        document.getElementById('editorcont').style.top = "200%"
+        document.getElementById('staffcont').innerHTML = ""
+        addStaff()
+     })
+}
+
+async function deleteStaff(name, skip){
+    if (window.confirm("Are you sure you want to remove "+name.replace('jpg','')+"?") || skip) {
+        var storageRef = firebase.storage().ref('staff/'+name)
+        await storageRef.delete().then(() => {
+            document.getElementById('staffcont').innerHTML = ""
+            addStaff()
+        })
+        .catch((e)=>{
+            console.log("delete error: "+e)
+        })
+    }
 }

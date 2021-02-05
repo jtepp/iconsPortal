@@ -20,16 +20,18 @@
 
 
 <div id="staffcont">
-    <div id="newcard" class="staffcard">
-        <div id="innernewcard">
-            <img width="60" height="60" src="images/+.png" style="filter:hue-rotate(90deg)">
-        </div>
-    </div>
+    
 </div>
 
 <div id="editorcont">
-    <div>
-        <input type="file" id="fileButton">
+    <div id="editor">
+        <img id = "editimg" alt="" src="" onerror="this.src = `images/empty.jpg`">
+        <input type="file" id="fileButton" accept="image/*">
+        <div class="flex-row" style="padding:20px; margin-left: -50px;">Name:&nbsp<input type="text" id="editname"></div>
+        <div class="flex-row" id="editbuttons">
+            <div class="staffbutton" data-text="Cancel" id="editcancel" onclick="cancelEdit()"></div>
+            <div class="staffbutton" data-text="Upload" id="editupload"></div>
+        </div>
         <progress id="progress"></progress>
     </div>
 </div>
