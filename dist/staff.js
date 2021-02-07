@@ -169,7 +169,7 @@ function upload(name, file) {
 }
 
 async function deleteStaff(name, skip){
-    if (window.confirm("Are you sure you want to remove "+name.replace('jpg','')+"?") || skip) {
+    if (window.confirm("Are you sure you want to remove "+name.replace('.jpg','')+"?") || skip) {
         var storageRef = firebase.storage().ref('staff/'+name)
         await storageRef.delete().then(() => {
             document.getElementById('staffcont').innerHTML = ""
