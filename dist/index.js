@@ -50,6 +50,7 @@ function makeCard(docInput){
     fields.setAttribute('class','fields')
 
         fields.innerHTML+="<strong>Category: </strong>"+info["category"]+"<br>"
+        fields.innerHTML+="<strong>Sub: </strong>"+info["sub"]+"<br>"
         fields.innerHTML+="<strong>Available: </strong>"+info["available"]+"&nbsp;&nbsp;"
 
     const fieldcont = document.createElement("div")
@@ -100,6 +101,7 @@ function addNew(){
         db.collection("items").add({
             name: "New item",
             category: "none",
+            sub: "none",
             available: 0
         })
         .then((doc)=>{openEdit(doc.id)})
@@ -123,6 +125,7 @@ document.getElementById("editor").onclick = (event)=>{
 function openEdit(id){
     const n = document.getElementById("editname")
     const c = document.getElementById("editcategory")
+    const s = document.getElementById("editsub")
     const a = document.getElementById("editavailable")
     const e = document.getElementById('editor')
     
@@ -131,6 +134,7 @@ function openEdit(id){
             const data = doc.data()
             n.value = data["name"]
             c.value = data["category"]
+            s.value = data["sub"]
             a.value = Math.abs(data["available"])
             e.style.top = "50%"
             
@@ -143,6 +147,7 @@ function openEdit(id){
         firebase.firestore().collection('items').doc(id).update({
             name: n.value,
             category: c.value,
+            sub: s.value,
             available: Math.abs(Number(a.value))
         })}
         document.getElementById("editor").style.top = "200%"
