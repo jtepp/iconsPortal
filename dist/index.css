@@ -19,6 +19,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    min-height: 300px;
+    min-width: calc(100% - 40px);
 }
 
 .card {
@@ -121,6 +123,12 @@ img {
 
 
 #editcard{
-
     padding: 20px;
+}
+
+#searchdiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 60px;
 }

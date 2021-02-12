@@ -158,3 +158,13 @@ function openEdit(id){
     }
     })
 }
+
+function search() {
+    const cont = document.getElementById('dbcont')
+    const query = document.getElementById('search')
+    for (let e of cont.childNodes){
+        if (e.id != "addnew") {
+            e.style.display = query.value == "" ? "block" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "block" : "none")
+        }
+    }
+}

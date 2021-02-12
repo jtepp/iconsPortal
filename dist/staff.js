@@ -180,3 +180,14 @@ async function deleteStaff(name, skip){
         })
     }
 }
+
+function search() {
+    const cont = document.getElementById('staffcont')
+    const query = document.getElementById('search')
+    for (let e of cont.children){
+        if (e.id != "newcard") {
+            e.style.display = query.value == "" ? "flex" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "flex" : "none")
+            // console.log(e.textContent)
+        }
+    }
+}
