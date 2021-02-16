@@ -23,7 +23,7 @@
                 <div></div>
                 <div class="auth" id="authauth">
                     Password:
-                    <input type="password" name="" id="authpass" onchange="authenticate()">
+                    <input type="password" name="" id="authpass" onchange="authenticate()" oninput="window.sessionStorage.setItem('iconsportal-password',document.getElementById('authpass').value)">
                     <button onclick="authenticate()">Submit</button>
                 </div>
             </div>
