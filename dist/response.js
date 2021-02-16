@@ -66,6 +66,8 @@ async function addStaff() {
 
       const p = window.sessionStorage.getItem('iconsportal-password') || window.prompt('Enter Password')
 
+      window.sessionStorage.setItem('iconsportal-password', p)
+
         firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',p)
         .then((user)=>{
 
