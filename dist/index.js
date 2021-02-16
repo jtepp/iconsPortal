@@ -1,3 +1,5 @@
+var authed = false
+
 var firebaseConfig = {
     apiKey: "AIzaSyCX8O0iEJpoHMrec2-L3wc_qTc4csx8Gww",
     authDomain: "icons724a.firebaseapp.com",
@@ -37,7 +39,7 @@ function makeCard(docInput){
 
     const del = new Image(20,20)
     del.src = "images/x.png"
-    del.setAttribute('class', 'locked')
+    if (!authed){del.setAttribute('class', 'locked')}
     cardTop.appendChild(del)
     del.onclick = ()=>{
         if (window.confirm("Are you sure you want to delete this item?")){
@@ -77,7 +79,7 @@ function makeCard(docInput){
     // inc.setAttribute('class','increment')
     
     const reduce = new Image(20,20)
-    reduce.setAttribute('class','locked')
+    if (!authed){reduce.setAttribute('class','locked')}
     reduce.src = "images/-.png"
     reduce.onclick = ()=>{
         if (info["available"] >0){
@@ -86,7 +88,7 @@ function makeCard(docInput){
     }
     
     const increase = new Image(20,20)
-    increase.setAttribute('class','locked')
+    if (!authed){increase.setAttribute('class','locked')}
     increase.src = "images/+.png"
     increase.onclick = ()=>{
         incFunc(1,docInput.id)
@@ -99,7 +101,8 @@ function makeCard(docInput){
     fieldcont.appendChild(fields)
 
     const ed = document.createElement('span')
-    ed.setAttribute('class','edit locked')
+    if (!authed){ed.setAttribute('class','edit locked')}
+    else {ed.setAttribute('class','edit')}
     ed.onclick = ()=>{
         openEdit(docInput.id)
     }
@@ -114,7 +117,8 @@ function makeCard(docInput){
 function addNew(){
     const d = document.createElement('div');
     d.id = "addnew"
-    d.setAttribute('class','card locked')
+    if (!authed){d.setAttribute('class','card locked')}
+    else {d.setAttribute('class','card')}
     const i = new Image(60,60)
     i.src = "images/+.png"
     d.appendChild(i)
@@ -194,6 +198,7 @@ function authenticate(){
     firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',document.getElementById('authpass').value)
     .then((user)=>{
         console.log(user)
+        authed = true
         const auth = document.getElementsByClassName('auth')
         for(let a of auth){
             a.style.display = 'none'
@@ -207,6 +212,7 @@ function authenticate(){
         console.log(error)
         const d = document.getElementById('authauth').style
         d.animation = "shake ease-out 0.6s"
+        authed = false
         setTimeout(()=>{
             d.animation = ""
         },600)
