@@ -37,6 +37,7 @@ function makeCard(docInput){
 
     const del = new Image(20,20)
     del.src = "images/x.png"
+    del.setAttribute('class', 'locked')
     cardTop.appendChild(del)
     del.onclick = ()=>{
         if (window.confirm("Are you sure you want to delete this item?")){
@@ -49,36 +50,56 @@ function makeCard(docInput){
     const fields = document.createElement("p")
     fields.setAttribute('class','fields')
 
-        fields.innerHTML+="<strong>Category: </strong>"+info["category"]+"<br>"
-        fields.innerHTML+="<strong>Sub: </strong>"+info["sub"]+"<br>"
-        fields.innerHTML+="<strong>Available: </strong>"+info["available"]+"&nbsp;&nbsp;"
+    const cc = document.createElement('strong')
+    cc.innerHTML = "Category: "
+    fields.appendChild(cc)
+    fields.innerHTML += info["category"]+"<br>"
 
+
+    const ss = document.createElement('strong')
+    ss.innerHTML = "Sub: "
+    fields.appendChild(ss)
+    fields.innerHTML += info["sub"]+"<br>"
+
+    const availablerow = document.createElement('div')
+    availablerow.id = "availablerow"
+    const aa = document.createElement('strong')
+    aa.innerHTML = "Available:&nbsp;"
+    availablerow.appendChild(aa)
+    availablerow.innerHTML += info["available"]+"&nbsp;&nbsp;"
+    
+
+    
     const fieldcont = document.createElement("div")
     fieldcont.setAttribute('class','fieldcont')
-
-    const inc = document.createElement('span')
-    inc.setAttribute('class','increment')
+    
+    // const inc = document.createElement('span')
+    // inc.setAttribute('class','increment')
+    
     const reduce = new Image(20,20)
+    reduce.setAttribute('class','locked')
     reduce.src = "images/-.png"
     reduce.onclick = ()=>{
         if (info["available"] >0){
             incFunc(-1,docInput.id)
         }
     }
-
+    
     const increase = new Image(20,20)
+    increase.setAttribute('class','locked')
     increase.src = "images/+.png"
     increase.onclick = ()=>{
         incFunc(1,docInput.id)
     }
-
-    fields.appendChild(reduce)
-    fields.appendChild(increase)
+    
+    availablerow.appendChild(reduce)
+    availablerow.appendChild(increase)
+    fields.appendChild(availablerow)
     // fields.appendChild(inc)
     fieldcont.appendChild(fields)
 
     const ed = document.createElement('span')
-    ed.classList.add('edit')
+    ed.setAttribute('class','edit locked')
     ed.onclick = ()=>{
         openEdit(docInput.id)
     }
@@ -93,7 +114,7 @@ function makeCard(docInput){
 function addNew(){
     const d = document.createElement('div');
     d.id = "addnew"
-    d.classList.add("card")
+    d.setAttribute('class','card locked')
     const i = new Image(60,60)
     i.src = "images/+.png"
     d.appendChild(i)
@@ -167,4 +188,27 @@ function search() {
             e.style.display = query.value == "" ? "block" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "block" : "none")
         }
     }
+}
+
+function authenticate(){
+    firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',document.getElementById('authpass').value)
+    .then((user)=>{
+        console.log(user)
+        const auth = document.getElementsByClassName('auth')
+        for(let a of auth){
+            a.style.display = 'none'
+        }
+        const locked = document.getElementsByClassName('locked')
+        for(let l of locked){
+            l.style.display = 'flex'
+        }
+    })
+    .catch((error)=>{
+        console.log(error)
+        const d = document.getElementById('authauth').style
+        d.animation = "shake ease-out 0.6s"
+        setTimeout(()=>{
+            d.animation = ""
+        },600)
+    })
 }
