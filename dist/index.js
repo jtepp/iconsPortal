@@ -17,7 +17,8 @@ var db = firebase.firestore();
 db.collection("items").onSnapshot(snapshot=>{
     document.getElementById('dbcont').innerHTML = ''
 
-    addNew();
+    if (authed){
+    addNew();}
 
     snapshot.forEach(doc=>{
         document.getElementById('dbcont').appendChild(makeCard(doc))
