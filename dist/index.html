@@ -15,7 +15,7 @@
         <div class="headcol">
             <div class="headrow">
                 <h1>Welcome to the iCons portal!</h1>
-                <div id="authbutton" class="auth" style="cursor: pointer;" onclick="document.getElementById('authauth').style.right = '0'">
+                <div id="authbutton" class="auth" style="cursor: pointer;" onclick="document.getElementById('authauth').style.right = '0'; setTimeout(()=>{document.getElementById('authpass').focus()},400)">
                     Sign in to make changes
                 </div>
             </div>
