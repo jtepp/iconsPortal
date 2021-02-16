@@ -90,7 +90,12 @@ function placeStaff(s){
     // edit.onclick = ()=>{showEdit(false, s)}
 
     const del = document.createElement('div')
-    del.setAttribute('class','staffbutton locked')
+    if (!authed) {
+        del.setAttribute('class','staffbutton locked')
+    } else {
+        del.setAttribute('class','staffbutton')
+    }
+
     del.setAttribute('data-text','Delete')
     del.onclick = ()=>{
         deleteStaff(s, false)
@@ -171,7 +176,7 @@ function upload(name, file) {
 }
 
 async function deleteStaff(name, skip){
-    if (window.confirm("Are you sure you want to remove "+name.replace('.jpg','')+"?") || skip) {
+    if (skip || window.confirm("Are you sure you want to remove "+name.replace('.jpg','')+"?")) {
         var storageRef = firebase.storage().ref('staff/'+name)
         await storageRef.delete().then(() => {
             document.getElementById('staffcont').innerHTML = ""
@@ -224,4 +229,5 @@ function authenticate(){
 
 document.getElementById('newcard').style.display = "none"
 
-authenticate()
+// authenticate()
+
