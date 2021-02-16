@@ -62,29 +62,46 @@ async function addStaff() {
     const e = document.createElement('div');
     e.setAttribute('class', 'staffdiv');
     e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
-    e.onclick = () => { if (canClick){
-      canClick = false
-      ids.forEach( item =>{
-        const ff = firebase.firestore().collection('items').doc(item)
-        const inc = -1 * (quantities[ids.indexOf(ff.id)] || 1)
-        ff.update({
-          available: firebase.firestore.FieldValue.increment(inc)
+    e.onclick = () => { 
+
+      const p = window.sessionStorage.getItem('iconsportal-password') || window.prompt('Enter Password')
+
+        firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',p)
+        .then((user)=>{
+
+
+          if (canClick){
+            canClick = false
+            ids.forEach( item =>{
+              const ff = firebase.firestore().collection('items').doc(item)
+              const inc = -1 * (quantities[ids.indexOf(ff.id)] || 1)
+              ff.update({
+                available: firebase.firestore.FieldValue.increment(inc)
+              })
+              
+            })
+            fetch('https://iconsportal.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
+              .then(res => res.text())
+              .then(t => {
+                if (t == "success") {
+                  
+      
+                  window.location.href = "/";
+                } else {
+                  console.log(t);
+                }
+      
+              });}
         })
-        
-      })
-      fetch('https://iconsportal.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
-        .then(res => res.text())
-        .then(t => {
-          if (t == "success") {
-            
+        .catch((error)=>{
+            console.log(error)
+            window.alert('Incorrect Password')
+        })
 
-            window.location.href = "/";
-          } else {
-            console.log(t);
-          }
 
-        });}
     };
+
+
 
 
 
@@ -111,4 +128,3 @@ async function addStaff() {
   }
 }
   
-
