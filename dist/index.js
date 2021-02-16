@@ -196,7 +196,7 @@ function search() {
 }
 
 function authenticate(){
-    firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',document.getElementById('authpass').value)
+    firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',document.getElementById('authpass').value || window.sessionStorage.getItem('iconsportal-password'))
     .then((user)=>{
         console.log(user)
         authed = true
@@ -219,3 +219,5 @@ function authenticate(){
         },600)
     })
 }
+
+authenticate()
