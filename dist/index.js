@@ -118,8 +118,7 @@ function makeCard(docInput){
 function addNew(){
     const d = document.createElement('div');
     d.id = "addnew"
-    if (!authed){d.setAttribute('class','card locked')}
-    else {d.setAttribute('class','card')}
+    d.setAttribute('class','card')
     const i = new Image(60,60)
     i.src = "images/+.png"
     d.appendChild(i)
@@ -200,6 +199,18 @@ function authenticate(){
 
     firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',p.value || window.sessionStorage.getItem('iconsportal-password'))
     .then((user)=>{
+
+        db.collection("items").onSnapshot(snapshot=>{
+            document.getElementById('dbcont').innerHTML = ''
+        
+            if (authed){
+            addNew();}
+        
+            snapshot.forEach(doc=>{
+                document.getElementById('dbcont').appendChild(makeCard(doc))
+            })
+        })
+
         console.log(user)
         authed = true
         const auth = document.getElementsByClassName('auth')
@@ -210,7 +221,7 @@ function authenticate(){
         for(let l of locked){
             l.style.display = 'flex'
         }
-        document.getElementById('addnew').style.display = 'flex'
+
     })
     .catch((error)=>{
         console.log(error)
