@@ -229,5 +229,5 @@ function authenticate(){
 
 document.getElementById('newcard').style.display = "none"
 
-// authenticate()
+authenticate()
 
