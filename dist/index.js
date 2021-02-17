@@ -210,6 +210,7 @@ function authenticate(){
         for(let l of locked){
             l.style.display = 'flex'
         }
+        document.getElementById('addnew').style.display = 'flex'
     })
     .catch((error)=>{
         console.log(error)
