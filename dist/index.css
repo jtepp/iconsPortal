@@ -23,16 +23,15 @@
 
 .card {
    color: black;
-    padding: 5px 25px;
+    padding: 5px 15px;
     background: #ffffff;
-    border-radius: 50px;
     width: fit-content;
     min-width: 240px;
-    max-width: 300px;
-    margin: 20px;
+    max-width: 240px;
+    margin: 15px;
     min-height: 200px;
     max-height: 200px;
-    outline: 2px solid #d8d8d8
+    outline: 1.5px solid #d8d8d8
 }
 
 .card:hover{
