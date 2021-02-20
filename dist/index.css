@@ -12,7 +12,7 @@
 }
 
 #dbcont {
-    background: #eee;
+    background: #fff;
     border-radius: 20px;
     margin: 20px;
     display: flex;
@@ -22,16 +22,16 @@
 }
 
 .card {
-    color: white;
-    padding: 5px 20px;
-    background: #06894b;
+    color: black;
+    padding: 5px 25px;
+    background: #ffffff;
     border-radius: 10px;
     width: fit-content;
     min-width: 240px;
     max-width: 300px;
     margin: 20px;
     min-height: 180px;
-    filter: drop-shadow(4px 4px 4px #00000077);
+    outline: 5px dotted green;
 }
 
 .card:hover{
@@ -40,7 +40,7 @@
 
 .card > .cardTop > h3 {
     margin: 10px;
-    font-size: 20pt;
+    font-size: 15pt;
     max-width: 200px;
     word-wrap: break-word;
 }
@@ -60,11 +60,10 @@ img {
 }
 
 .fieldcont{
-    color: white;
-    padding: 5px 20px;
-    background: #035f34;
+    color: black;
+    padding: 4px 25px;
+    background: #e5e5e5;
     border-radius: 10px;
-    margin-bottom: 10px;
     line-height: 1.6;
 }
 
