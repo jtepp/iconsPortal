@@ -35,8 +35,9 @@ function makeCard(docInput){
 
     cardTop.classList.add("cardTop")
 
-    const del = new Image(20,20)
-    del.src = "images/x.png"
+    const del = document.createElement('span')
+    del.innerHTML = "x"
+    del.setAttribute('class', 'x')
     cardTop.appendChild(del)
     del.onclick = ()=>{
         if (window.confirm("Are you sure you want to delete this item?")){

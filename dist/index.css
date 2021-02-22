@@ -46,7 +46,7 @@
     word-wrap: break-word;
 }
 
-img {
+img, .x {
     cursor: pointer;
 }
 
@@ -58,6 +58,7 @@ img {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    outline: none;
 }
 
 .fieldcont{
