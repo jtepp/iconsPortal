@@ -11,7 +11,7 @@ export function handler(event, context, callback) {
     service: 'gmail',
     auth: {
       user: 'iconsrequestservice@gmail.com',
-      pass: 'icons724A'
+      pass: process.env.PASSWORD
     }
   });
 
