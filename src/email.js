@@ -1,5 +1,6 @@
 export function handler(event, context, callback) {
 
+  require('dotenv').config()
   const nodemailer = require('nodemailer');
   var msg = "a"
   let recipient = valid(event.queryStringParameters["r"]) ||  "iconsrequestservice@gmail.com"
@@ -11,7 +12,7 @@ export function handler(event, context, callback) {
     service: 'gmail',
     auth: {
       user: 'iconsrequestservice@gmail.com',
-      pass: 'icons724A'
+      pass: process.env.PASSWORD
     }
   });
 
