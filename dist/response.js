@@ -27,7 +27,9 @@ if (window.location.href.includes("%26")) window.location.href = window.location
     db.collection("items").get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               if (ids.includes(doc.id)){
-                itemsRequested += " "+doc.get("name")+" x"+(quantities[ids.indexOf(doc.id)] || 1)+","
+                let amount = quantities[ids.indexOf(doc.id)] || 1
+                let left = doc.data().available
+                itemsRequested += " "+doc.get("name")+" x"+(amount)+(amount > left ? "<over> ["+left+" available]</over>," : ",")
               }
           });
           itemsRequested = itemsRequested.slice(0,itemsRequested.length -1)
