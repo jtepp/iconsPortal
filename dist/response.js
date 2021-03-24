@@ -27,9 +27,13 @@ if (window.location.href.includes("%26")) window.location.href = window.location
     db.collection("items").get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               if (ids.includes(doc.id)){
-                let amount = quantities[ids.indexOf(doc.id)] || 1
+                let amount = quantities[ids.indexOf(doc.id)] || 0
                 let left = doc.data().available
-                itemsRequested += " "+doc.get("name")+" x"+(amount)+(amount > left ? "<over> ["+left+" available]</over>," : ",")
+                let over = amount > left
+                itemsRequested += " "+doc.get("name")+" x"+(amount)+(over ? `<over style="color:red"> [`+left+" available]</over>," : ",")
+                if (over) {
+                  quantities[ids.indexOf(doc.id)] = left
+                }
               }
           });
           itemsRequested = itemsRequested.slice(0,itemsRequested.length -1)
