@@ -2,7 +2,7 @@ if (window.location.href.includes("%26")) window.location.href = window.location
 
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var canClick = true;
+  var canClick = true
   var firebaseConfig = {
     apiKey: "AIzaSyCX8O0iEJpoHMrec2-L3wc_qTc4csx8Gww",
     authDomain: "icons724a.firebaseapp.com",

@@ -111,6 +111,7 @@ function makeCard(docInput){
     // ed.style.paddingBottom = "10px"
     d.appendChild(fieldcont)
     d.appendChild(ed)
+
     return d
 
 }
@@ -187,12 +188,21 @@ function openEdit(id){
 function search() {
     const cont = document.getElementById('dbcont')
     const query = document.getElementById('search')
-    for (let e of cont.childNodes){
-        if (e.id != "addnew") {
-            e.style.display = query.value == "" ? "block" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "block" : "none")
+    if (query.value != "") {
+        for (let e of cont.childNodes){
+            if (e.id != "addnew") {
+                e.style.display = query.value == "" ? "block" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "block" : "none")
+            }
+        }
+    } else {
+        for (let e of cont.childNodes){
+            if (e.id != "addnew") {
+                e.style.display = "block"
+            }
         }
     }
 }
+
 
 function authenticate(){
     const p = document.getElementById('authpass')
