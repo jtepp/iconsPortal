@@ -17,7 +17,7 @@ export function handler(event, context, callback) {
   });
 
   var mailOptions = {
-    from: 'Your Icons Order <iconsrequestservice@gmail.com>',
+    from: 'Your iCons Order <iconsrequestservice@gmail.com>',
     to: recipient,
     subject: sub,
     text: txt,

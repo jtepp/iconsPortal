@@ -1,3 +1,5 @@
+var authed = false
+
 var firebaseConfig = {
     apiKey: "AIzaSyCX8O0iEJpoHMrec2-L3wc_qTc4csx8Gww",
     authDomain: "icons724a.firebaseapp.com",
@@ -15,7 +17,8 @@ var db = firebase.firestore();
 db.collection("items").onSnapshot(snapshot=>{
     document.getElementById('dbcont').innerHTML = ''
 
-    addNew();
+    if (authed){
+    addNew();}
 
     snapshot.forEach(doc=>{
         document.getElementById('dbcont').appendChild(makeCard(doc))
@@ -37,7 +40,9 @@ function makeCard(docInput){
 
     const del = document.createElement('span')
     del.innerHTML = "x"
-    del.setAttribute('class', 'x')
+    if (!authed){del.setAttribute('class', 'x locked')} else {
+        del.setAttribute('class', 'x')
+    }
     cardTop.appendChild(del)
     del.onclick = ()=>{
         if (window.confirm("Are you sure you want to delete this item?")){
@@ -50,36 +55,57 @@ function makeCard(docInput){
     const fields = document.createElement("p")
     fields.setAttribute('class','fields')
 
-        fields.innerHTML+="<strong>Category: </strong>"+info["category"]+"<br>"
-        fields.innerHTML+="<strong>Sub: </strong>"+info["sub"]+"<br>"
-        fields.innerHTML+="<strong>Available: </strong>"+info["available"]+"&nbsp;&nbsp;"
+    const cc = document.createElement('strong')
+    cc.innerHTML = "Category: "
+    fields.appendChild(cc)
+    fields.innerHTML += info["category"]+"<br>"
 
+
+    const ss = document.createElement('strong')
+    ss.innerHTML = "Sub: "
+    fields.appendChild(ss)
+    fields.innerHTML += info["sub"]+"<br>"
+
+    const availablerow = document.createElement('div')
+    availablerow.id = "availablerow"
+    const aa = document.createElement('strong')
+    aa.innerHTML = "Available:&nbsp;"
+    availablerow.appendChild(aa)
+    availablerow.innerHTML += info["available"]+"&nbsp;&nbsp;"
+    
+
+    
     const fieldcont = document.createElement("div")
     fieldcont.setAttribute('class','fieldcont')
-
-    const inc = document.createElement('span')
-    inc.setAttribute('class','increment')
+    
+    // const inc = document.createElement('span')
+    // inc.setAttribute('class','increment')
+    
     const reduce = new Image(20,20)
+    if (!authed){reduce.setAttribute('class','locked')}
     reduce.src = "images/-.png"
     reduce.onclick = ()=>{
         if (info["available"] >0){
             incFunc(-1,docInput.id)
         }
     }
-
+    
     const increase = new Image(20,20)
+    if (!authed){increase.setAttribute('class','locked')}
     increase.src = "images/+.png"
     increase.onclick = ()=>{
         incFunc(1,docInput.id)
     }
-
-    fields.appendChild(reduce)
-    fields.appendChild(increase)
+    
+    availablerow.appendChild(reduce)
+    availablerow.appendChild(increase)
+    fields.appendChild(availablerow)
     // fields.appendChild(inc)
     fieldcont.appendChild(fields)
 
     const ed = document.createElement('span')
-    ed.classList.add('edit')
+    if (!authed){ed.setAttribute('class','edit locked')}
+    else {ed.setAttribute('class','edit')}
     ed.onclick = ()=>{
         openEdit(docInput.id)
     }
@@ -87,6 +113,7 @@ function makeCard(docInput){
     // ed.style.paddingBottom = "10px"
     d.appendChild(fieldcont)
     d.appendChild(ed)
+
     return d
 
 }
@@ -94,7 +121,7 @@ function makeCard(docInput){
 function addNew(){
     const d = document.createElement('div');
     d.id = "addnew"
-    d.classList.add("card")
+    d.setAttribute('class','card')
     const i = new Image(60,60)
     i.src = "images/+.png"
     d.appendChild(i)
@@ -163,9 +190,60 @@ function openEdit(id){
 function search() {
     const cont = document.getElementById('dbcont')
     const query = document.getElementById('search')
-    for (let e of cont.childNodes){
-        if (e.id != "addnew") {
-            e.style.display = query.value == "" ? "block" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "block" : "none")
+    if (query.value != "") {
+        for (let e of cont.childNodes){
+            if (e.id != "addnew") {
+                e.style.display = query.value == "" ? "block" : (e.textContent.toLowerCase().includes(query.value.toLowerCase()) ? "block" : "none")
+            }
+        }
+    } else {
+        for (let e of cont.childNodes){
+            if (e.id != "addnew") {
+                e.style.display = "block"
+            }
         }
     }
 }
+
+
+function authenticate(){
+    const p = document.getElementById('authpass')
+
+    firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',p.value || window.sessionStorage.getItem('iconsportal-password'))
+    .then((user)=>{
+
+        db.collection("items").onSnapshot(snapshot=>{
+            document.getElementById('dbcont').innerHTML = ''
+        
+            if (authed){
+            addNew();}
+        
+            snapshot.forEach(doc=>{
+                document.getElementById('dbcont').appendChild(makeCard(doc))
+            })
+        })
+
+        console.log(user)
+        authed = true
+        const auth = document.getElementsByClassName('auth')
+        for(let a of auth){
+            a.style.display = 'none'
+        }
+        const locked = document.getElementsByClassName('locked')
+        for(let l of locked){
+            l.style.display = 'flex'
+        }
+
+    })
+    .catch((error)=>{
+        console.log(error)
+        const d = document.getElementById('authauth').style
+        d.animation = "shake ease-out 0.6s"
+        authed = false
+        setTimeout(()=>{
+            d.animation = ""
+        },600)
+    })
+}
+
+authenticate()

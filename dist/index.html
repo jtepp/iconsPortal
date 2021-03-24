@@ -6,12 +6,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link rel="stylesheet" href="index.css">
+        <link rel="shortcut icon" href="images/iconsiconcircle.png" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
         <title>iCons | Inventory</title>
     </head>
 
     <body>
-<h1>Welcome to the iCons portal!</h1>
+        <div class="headcol">
+            <div class="headrow">
+                <h1>Welcome to the iCons portal!</h1>
+                <div id="authbutton" class="auth" style="cursor: pointer;" onclick="document.getElementById('authauth').style.right = '0'; setTimeout(()=>{document.getElementById('authpass').focus()},400)">
+                    Sign in to make changes
+                </div>
+            </div>
+            <div class="headrow">
+                <div></div>
+                <div class="auth" id="authauth">
+                    Password:
+                    <input type="password" name="" id="authpass" onchange="authenticate()" oninput="window.sessionStorage.setItem('iconsportal-password',document.getElementById('authpass').value)">
+                    <button onclick="authenticate()">Submit</button>
+                </div>
+            </div>
+        </div>
 <br>
 <a href="/staff">Go to staff manager</a>
 <hr>
@@ -20,7 +36,7 @@
 <div id="searchdiv">
     Search:&nbsp<input type="search" name="" id="search" oninput="search()">
 </div>
-<div id="dbcont">
+<div id="dbcont" onmousemove="search()">
 </div>
 <div id="editor" >
     <div class="card" id="editcard">
@@ -43,6 +59,7 @@
             https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
         <script src="index.js"></script>
     </body>
 </html>

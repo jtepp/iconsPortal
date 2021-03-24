@@ -2,7 +2,7 @@ if (window.location.href.includes("%26")) window.location.href = window.location
 
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var canClick = true;
+  var canClick = true
   var firebaseConfig = {
     apiKey: "AIzaSyCX8O0iEJpoHMrec2-L3wc_qTc4csx8Gww",
     authDomain: "icons724a.firebaseapp.com",
@@ -27,7 +27,13 @@ if (window.location.href.includes("%26")) window.location.href = window.location
     db.collection("items").get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
               if (ids.includes(doc.id)){
-                itemsRequested += " "+doc.get("name")+" x"+(quantities[ids.indexOf(doc.id)] || 1)+","
+                let amount = quantities[ids.indexOf(doc.id)] || 0
+                let left = doc.data().available
+                let over = amount > left
+                itemsRequested += " "+doc.get("name")+" x"+(amount)+(over ? `<over style="color:red"> [`+left+" available]</over>," : ",")
+                if (over) {
+                  quantities[ids.indexOf(doc.id)] = left
+                }
               }
           });
           itemsRequested = itemsRequested.slice(0,itemsRequested.length -1)
@@ -58,33 +64,52 @@ async function addStaff() {
   for (let s of staffList) {
     
     const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Ficons724a.appspot.com%2Fo%2Fstaff%252F${s}%3Falt%3Dmedia" draggable="false" style="width: 100%25%3B"/></div></div>`
-    const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
+    const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}${itemsRequested.includes("available]") ? `<br><br><i style="color:red">Unfortunately your order could not be completely fulfilled as some of your items were taken before your order could be processed.</i>` : ``}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
     const e = document.createElement('div');
     e.setAttribute('class', 'staffdiv');
     e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
-    e.onclick = () => { if (canClick){
-      canClick = false
-      ids.forEach( item =>{
-        const ff = firebase.firestore().collection('items').doc(item)
-        const inc = -1 * (quantities[ids.indexOf(ff.id)] || 1)
-        ff.update({
-          available: firebase.firestore.FieldValue.increment(inc)
+    e.onclick = () => { 
+
+      const p = window.sessionStorage.getItem('iconsportal-password') || window.prompt('Enter Password')
+
+      window.sessionStorage.setItem('iconsportal-password', p)
+
+        firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',p)
+        .then((user)=>{
+
+
+          if (canClick){
+            canClick = false
+            ids.forEach( item =>{
+              const ff = firebase.firestore().collection('items').doc(item)
+              const inc = -1 * (quantities[ids.indexOf(ff.id)] || 0)
+              ff.update({
+                available: firebase.firestore.FieldValue.increment(inc)
+              })
+              
+            })
+            fetch('https://iconsportal.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
+              .then(res => res.text())
+              .then(t => {
+                if (t == "success") {
+                  
+      
+                  window.location.href = "/";
+                } else {
+                  console.log(t);
+                }
+      
+              });}
         })
-        
-      })
-      fetch('https://iconsportal.netlify.app/.netlify/functions/email?r=' + mail + '&s=Your%20iCons%20order%20has%20been%20accepted&h=' + rh)
-        .then(res => res.text())
-        .then(t => {
-          if (t == "success") {
-            
+        .catch((error)=>{
+            console.log(error)
+            window.alert('Incorrect Password')
+        })
 
-            window.location.href = "/";
-          } else {
-            console.log(t);
-          }
 
-        });}
     };
+
+
 
 
 
@@ -111,4 +136,3 @@ async function addStaff() {
   }
 }
   
-

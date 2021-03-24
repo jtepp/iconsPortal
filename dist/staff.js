@@ -1,3 +1,5 @@
+var authed = false
+
 var firebaseConfig = {
     apiKey: "AIzaSyCX8O0iEJpoHMrec2-L3wc_qTc4csx8Gww",
     authDomain: "icons724a.firebaseapp.com",
@@ -45,9 +47,9 @@ async function addStaff(){
 function placeNewCard() {
     const nc = document.createElement('div')
     nc.id = "newcard"
-    nc.classList.add('staffcard')
+    nc.setAttribute('class', 'staffcard')
     nc.onclick = ()=>{showEdit(false, '')}
-
+    
     const inc = document.createElement('div')
     inc.id = "innernewcard"
     
@@ -88,7 +90,12 @@ function placeStaff(s){
     // edit.onclick = ()=>{showEdit(false, s)}
 
     const del = document.createElement('div')
-    del.classList.add('staffbutton')
+    if (!authed) {
+        del.setAttribute('class','staffbutton locked')
+    } else {
+        del.setAttribute('class','staffbutton')
+    }
+
     del.setAttribute('data-text','Delete')
     del.onclick = ()=>{
         deleteStaff(s, false)
@@ -169,7 +176,7 @@ function upload(name, file) {
 }
 
 async function deleteStaff(name, skip){
-    if (window.confirm("Are you sure you want to remove "+name.replace('.jpg','')+"?") || skip) {
+    if (skip || window.confirm("Are you sure you want to remove "+name.replace('.jpg','')+"?")) {
         var storageRef = firebase.storage().ref('staff/'+name)
         await storageRef.delete().then(() => {
             document.getElementById('staffcont').innerHTML = ""
@@ -191,3 +198,36 @@ function search() {
         }
     }
 }
+
+function authenticate(){
+    const p = document.getElementById('authpass')
+
+    firebase.auth().signInWithEmailAndPassword('iconsrequestservice@gmail.com',p.value || window.sessionStorage.getItem('iconsportal-password'))
+    .then((user)=>{
+        console.log(user)
+        authed = true
+        const auth = document.getElementsByClassName('auth')
+        for(let a of auth){
+            a.style.display = 'none'
+        }
+        const locked = document.getElementsByClassName('locked')
+        for(let l of locked){
+            l.style.display = 'flex'
+        }
+        document.getElementById('newcard').style.display = "flex"
+    })
+    .catch((error)=>{
+        console.log(error)
+        const d = document.getElementById('authauth').style
+        d.animation = "shake ease-out 0.6s"
+        authed = false
+        setTimeout(()=>{
+            d.animation = ""
+        },600)
+    })
+}
+
+document.getElementById('newcard').style.display = "none"
+
+authenticate()
+

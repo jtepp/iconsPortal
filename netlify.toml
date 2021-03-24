@@ -1,3 +1,3 @@
 [build]
 functions = "functions"
-Command = "npm run build"
+Command = "npm run build && node -p 'process.env'"
