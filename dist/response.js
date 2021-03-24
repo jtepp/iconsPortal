@@ -82,7 +82,7 @@ async function addStaff() {
             canClick = false
             ids.forEach( item =>{
               const ff = firebase.firestore().collection('items').doc(item)
-              const inc = -1 * (quantities[ids.indexOf(ff.id)] || 1)
+              const inc = -1 * (quantities[ids.indexOf(ff.id)] || 0)
               ff.update({
                 available: firebase.firestore.FieldValue.increment(inc)
               })
