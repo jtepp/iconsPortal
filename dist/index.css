@@ -34,10 +34,10 @@
     color: black;
     padding: 5px 20px;
     background: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     width: fit-content;
     margin: 20px;
-    filter: drop-shadow(4px 4px 4px #00000077);
+    /* filter: drop-shadow(4px 4px 4px #00000077); */
 }
 
 .card {
