@@ -64,7 +64,7 @@ async function addStaff() {
   for (let s of staffList) {
     
     const imgh = `<div class="staffdiv" style="width: 240px%3B height: 240px%3B overflow: hidden%3B border-radius: 50px%3B border: solid silver 5px%3B margin: 20px%3B display: flex%3B flex-direction: column%3B"><div class="staffimg"><img src="https%3A%2F%2Ffirebasestorage.googleapis.com%2Fv0%2Fb%2Ficons724a.appspot.com%2Fo%2Fstaff%252F${s}%3Falt%3Dmedia" draggable="false" style="width: 100%25%3B"/></div></div>`
-    const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
+    const rh = `<h3>Please wait while ${s.replace('.jpg', '')} delivers your order</h3>${imgh}<p>You ordered: <b>${itemsRequested}${itemsRequested.includes("available]") ? `<br><br><i style="color:red">Unfortunately your order could not be completely fulfilled as some of your items were taken before your order could be processed</i>` : ``}</b></p><p>Room: ${room}</p><p>Date: ${date}</p>`;
     const e = document.createElement('div');
     e.setAttribute('class', 'staffdiv');
     e.setAttribute('style', 'width: 240px;height: 240px;overflow: hidden;border-radius: 50px;border: solid silver 5px;margin: 20px;display: flex;flex-direction: column;cursor: pointer;');
