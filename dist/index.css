@@ -95,7 +95,7 @@ img, .x {
 
 .editspace {
     display: flex;
-    align-items:flex-end;
+    align-items: left;
     justify-content: center;
 }
 
