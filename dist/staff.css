@@ -45,7 +45,7 @@
     box-shadow: 4px 4px 4px #00000077;
     width: 300px;
     height: 100px;
-    background: rgb(35, 83, 212);
+    background: white;
     border-radius: 10px;
     margin: 10px;
 }
@@ -67,7 +67,7 @@
 }
 .staffname{
     font-weight: 700;
-    color: white;
+    color: black;
 }
 .staffactions{
     width: 200px;
@@ -148,9 +148,9 @@
 
 
 .auth{
-    color: white;
+    color: black;
     padding: 5px 20px;
-    background: rgb(35, 83, 212);
+    background: white;
     border-radius: 10px;
     width: fit-content;
     margin: 20px;
