@@ -150,11 +150,12 @@ border-radius: 0px;
 .auth{
     color: black;
     padding: 5px 20px;
+border-radius: 0px;
+    outline: 1.5px solid #d8d8d8;
     background: white;
-    border-radius: 10px;
+    border-radius: 0px;
     width: fit-content;
     margin: 20px;
-    filter: drop-shadow(4px 4px 4px #00000077);
 }
 
 
